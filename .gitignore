@@ -1,0 +1,5 @@
+# Environments
+env/
+
+# Configuration files
+*.conf
