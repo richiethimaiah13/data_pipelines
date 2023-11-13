@@ -5,3 +5,6 @@ env/
 
 # Configuration files
 *.conf
+
+# not committing any data
+*.csv
