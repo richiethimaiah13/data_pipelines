@@ -1,5 +1,5 @@
 # importing libraries
-import pymysql
+import psycopg2
 import csv
 import boto3
 import configparser
@@ -7,20 +7,20 @@ import configparser
 # initalize connection to mysql database in aws rds
 parser = configparser.ConfigParser()
 parser.read("pipeline.conf")
-hostname = parser.get("mysql_config", "hostname")
-port = parser.get("mysql_config", "port")
-username = parser.get("mysql_config", "username")
-dbname = parser.get("mysql_config", "database")
-password = parser.get("mysql_config", "password")
+hostname = parser.get("postgres_config", "hostname")
+port = parser.get("postgres_config", "port")
+username = parser.get("postgres_config", "username")
+dbname = parser.get("postgres_config", "database")
+password = parser.get("postgres_config", "password")
 
-conn = pymysql.connect(host=hostname, user=username, password=password, db=dbname, port=int(port))
+conn = psycopg2.connect(host=hostname, user=username, password=password, database=dbname, port=port)
 
 if conn is None:
-    print("Error connecting to the MySQL database")
+    print("Error connecting to the Postgres database")
 else:
     print("Connection Established")
 
-m_query = "SELECT * FROM datapipeline.Orders;"
+m_query = "SELECT * FROM Orders;"
 local_filename = "order_extract.csv"
 
 m_cursor = conn.cursor()
